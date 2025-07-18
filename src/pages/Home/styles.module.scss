@@ -1,0 +1,138 @@
+.home {
+  width: 100%;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--secondary-color);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.background {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.logo {
+  width: 15%;
+  position: fixed;
+  top: 100px;
+
+  @media (max-width: 768px) {
+    width: 59%;
+  }
+}
+
+.modal {
+  height: 450px;
+  width: 350px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 40px;
+  gap: 20px;
+}
+
+.register {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 20px;
+  gap: 20px;
+}
+
+.form {
+  height: 100%;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  label {
+    align-self: start;
+    margin-bottom: 5px;
+  }
+  input {
+    margin-bottom: 12px;
+    height: 35px;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    border: none;
+    color: var(--secondary-color);
+    border-radius: 8px;
+  }
+}
+
+.access {
+  margin-top: 10px;
+  width: 100%;
+  padding: 5px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  position: relative;
+  background-color: var(--secondary-color);
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.footer {
+  span {
+    margin-top: 12px;
+    font-size: 14px;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+.link {
+  background-color: transparent;
+  border: none;
+  transition: 0.4s all;
+  color: #b2a8d8;
+  font-weight: bold;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.title {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  h3 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+.divisor {
+  height: 1px;
+  width: 70%;
+  background-color: var(--secondary-color);
+}
