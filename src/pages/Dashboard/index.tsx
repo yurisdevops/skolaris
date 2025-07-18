@@ -1,4 +1,3 @@
-import BarChart from "../../components/BarChart";
 import DashboardCard from "../../components/DashboardCards";
 import styles from "./Dashboard.module.scss";
 

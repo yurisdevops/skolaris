@@ -7,14 +7,13 @@ import {
   institutionSchema,
   type institutionData,
 } from "../../schemas/profileSchema";
-import { useEffect } from "react";
-import { fetchAddress } from "../../services/viaCep/viaCep";
 import styles from "./ProfileForm.module.scss";
 import auth from "../../services/auth/auth";
 import { doc, setDoc } from "firebase/firestore";
 import db from "../../services/firestore/firestore";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import { useCepAutoFill } from "../../hooks/useCepAutoFill";
 
 export function ProfileForm() {
   const navigate = useNavigate();
@@ -28,21 +27,12 @@ export function ProfileForm() {
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(institutionSchema) });
 
-  const cep = watch("cep");
-
-  useEffect(() => {
-    if (cep && cep.replace(/\D/g, "").length === 8) {
-      fetchAddress(cep)
-        .then((data) => {
-          setValue("address", data.address);
-          setValue("city", data.city);
-          setValue("state", data.state);
-        })
-        .catch((err) => {
-          console.error("CEP inválido:", err.message);
-        });
-    }
-  }, [cep]);
+  useCepAutoFill(watch, setValue, {
+    zipCode: "zipCode",
+    address: "address",
+    city: "city",
+    state: "state",
+  });
 
   async function onSubmit(data: institutionData) {
     const user = auth.currentUser;
@@ -132,14 +122,14 @@ export function ProfileForm() {
           />
 
           <Controller
-            name="cep"
+            name="zipCode"
             control={control}
             render={({ field }) => (
               <MaskedInput
                 {...field}
                 mask="00000-000"
                 placeholder="CEP"
-                error={errors.cep?.message}
+                error={errors.zipCode?.message}
               />
             )}
           />

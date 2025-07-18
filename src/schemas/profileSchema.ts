@@ -6,7 +6,7 @@ export const institutionSchema = z.object({
   cnpj: z.string().refine(cnpj.isValid, {
     message: "CNPJ inválido",
   }),
-  cep: z
+  zipCode: z
     .string()
     .min(9, "CEP inválido")
     .regex(/^\d{5}-\d{3}$/, "CEP deve estar no formato 99999-999"),

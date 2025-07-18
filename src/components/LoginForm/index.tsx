@@ -27,7 +27,7 @@ export function LoginForm({ setView }: LoginFormProps) {
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(loginSchema) });
 
-  async function criarEscola(uid: string, email: string | null) {
+  async function criarEscola(uid: string) {
     const escolaRef = doc(db, "escolas", uid);
     const escolaSnap = await getDoc(escolaRef);
 
@@ -56,7 +56,7 @@ export function LoginForm({ setView }: LoginFormProps) {
       toast.success("Login efetuado!");
       dispatch(setUid(user.uid));
 
-      await criarEscola(user.uid, user.email);
+      await criarEscola(user.uid);
 
       setTimeout(() => {
         navigate("/auth-loading");

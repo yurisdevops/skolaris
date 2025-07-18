@@ -1,11 +1,10 @@
-import styles from "./Classes.module.scss";
-
+import { TeacherForm } from "../../components/TeacherForm";
+import styles from "./Teacher.module.scss";
 export function Teachers() {
   return (
     <div className={styles.dashboard}>
-      <h1>Classes</h1>
-      <p>Welcome to the Classes!</p>
-      <p>This is a placeholder for your Classes content.</p>
+      <h1>Professores</h1>
+      <TeacherForm />
     </div>
   );
 }
