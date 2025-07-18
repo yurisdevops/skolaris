@@ -1,4 +1,4 @@
-import styles from "./styles.module.scss";
+import styles from "./Layout.module.scss";
 import { Outlet } from "react-router";
 import { Header } from "../Header";
 import { Container } from "../Container";

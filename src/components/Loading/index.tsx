@@ -1,10 +1,5 @@
-import type { Variants } from "motion";
-import styles from "./styles.module.scss";
+import styles from "./Loading.module.scss";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setLoading } from "../../store/userSlice";
-import { replace, useNavigate } from "react-router";
 import { useAuthState } from "../../hooks/useAuthState";
 import { useSecureLoading } from "../../hooks/useSecureLoading";
 

@@ -1,4 +1,4 @@
-import styles from "./styles.module.scss";
+import styles from "./Header.module.scss";
 import { RiMenuUnfold3Fill } from "react-icons/ri";
 import { RiMenuUnfold4Fill } from "react-icons/ri";
 import { FaSun } from "react-icons/fa";

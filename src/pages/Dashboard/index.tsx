@@ -1,11 +1,13 @@
-import styles from "./styles.module.scss";
+import BarChart from "../../components/BarChart";
+import DashboardCard from "../../components/DashboardCards";
+import styles from "./Dashboard.module.scss";
 
 export function Dashboard() {
   return (
     <div className={styles.dashboard}>
       <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!</p>
-      <p>This is a placeholder for your dashboard content.</p>
+      <br />
+      <DashboardCard title="Atividade dos alunos" />
     </div>
   );
 }

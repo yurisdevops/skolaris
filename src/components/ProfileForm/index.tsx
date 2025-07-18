@@ -48,10 +48,15 @@ export function ProfileForm() {
     const user = auth.currentUser;
     if (user) {
       const uid = user.uid;
-
-      const dataSave = { ...data, uid: uid };
-
-      await setDoc(doc(db, "profile", uid), dataSave);
+      await setDoc(
+        doc(db, "escolas", uid),
+        {
+          uid,
+          dadosGerais: data,
+          perfilCompleto: true,
+        },
+        { merge: true }
+      );
       navigate("/dashboard");
       toast.success("Perfil Concluído!");
       reset();

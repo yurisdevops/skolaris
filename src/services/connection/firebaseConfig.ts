@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAtNu3j06J4iA3vYf43xdab3-QUt8NAsW0",
-  authDomain: "skolaris-fc512.firebaseapp.com",
-  projectId: "skolaris-fc512",
-  storageBucket: "skolaris-fc512.firebasestorage.app",
-  messagingSenderId: "183940960845",
-  appId: "1:183940960845:web:ddcb5824e704c12a5c4204",
-  measurementId: "G-T4QWTX4424",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);

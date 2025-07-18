@@ -1,6 +1,16 @@
-import styles from "./styles.module.scss";
-import { MdDashboard } from "react-icons/md";
-import { MdClass } from "react-icons/md";
+import styles from "./Sidebar.module.scss";
+import {
+  MdDashboard,
+  MdClass,
+  MdSchool,
+  MdPeople,
+  MdWork,
+  MdAssignment,
+  MdAttachMoney,
+  MdSettings,
+} from "react-icons/md";
+import { FaUserTie } from "react-icons/fa";
+
 import { useLocation, useNavigate } from "react-router";
 import { clearUid } from "../../store/userSlice";
 import { useDispatch } from "react-redux";
@@ -46,7 +56,90 @@ export function Sidebar({ open, theme }: SidebarProps) {
             <div className={styles.iconWrapper}>
               <MdClass className={styles.icon} />
             </div>
-            {open && <span>Classes</span>}
+            {open && <span>Turmas</span>}
+          </li>
+
+          <li
+            className={`${styles.navItem} ${
+              location.pathname === "/teachers" ? styles.active : ""
+            }`}
+            onClick={() => navigation("teachers")}
+          >
+            <div className={styles.iconWrapper}>
+              <FaUserTie className={styles.icon} />
+            </div>
+            {open && <span>Professores</span>}
+          </li>
+
+          <li
+            className={`${styles.navItem} ${
+              location.pathname === "/students" ? styles.active : ""
+            }`}
+            onClick={() => navigation("students")}
+          >
+            <div className={styles.iconWrapper}>
+              <MdSchool className={styles.icon} />
+            </div>
+            {open && <span>Alunos</span>}
+          </li>
+
+          <li
+            className={`${styles.navItem} ${
+              location.pathname === "/guardians" ? styles.active : ""
+            }`}
+            onClick={() => navigation("guardians")}
+          >
+            <div className={styles.iconWrapper}>
+              <MdPeople className={styles.icon} />
+            </div>
+            {open && <span>Responsáveis</span>}
+          </li>
+
+          <li
+            className={`${styles.navItem} ${
+              location.pathname === "/grades" ? styles.active : ""
+            }`}
+            onClick={() => navigation("grades")}
+          >
+            <div className={styles.iconWrapper}>
+              <MdAssignment className={styles.icon} />
+            </div>
+            {open && <span>Notas</span>}
+          </li>
+
+          <li
+            className={`${styles.navItem} ${
+              location.pathname === "/finance" ? styles.active : ""
+            }`}
+            onClick={() => navigation("finance")}
+          >
+            <div className={styles.iconWrapper}>
+              <MdAttachMoney className={styles.icon} />
+            </div>
+            {open && <span>Financeiro</span>}
+          </li>
+          <li
+            className={`${styles.navItem} ${
+              location.pathname === "/staff" ? styles.active : ""
+            }`}
+            onClick={() => navigation("staff")}
+          >
+            <div className={styles.iconWrapper}>
+              <MdWork className={styles.icon} />
+            </div>
+            {open && <span>Funcianários</span>}
+          </li>
+
+          <li
+            className={`${styles.navItem} ${
+              location.pathname === "/settings" ? styles.active : ""
+            }`}
+            onClick={() => navigation("settings")}
+          >
+            <div className={styles.iconWrapper}>
+              <MdSettings className={styles.icon} />
+            </div>
+            {open && <span>Configurações</span>}
           </li>
         </ul>
       </nav>

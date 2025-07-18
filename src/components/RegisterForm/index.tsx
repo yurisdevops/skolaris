@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
-import styles from "./styles.module.scss";
+import styles from "./RegisterForm.module.scss";
 import { Input } from "../Form/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   registerSchema,
   type RegisterData,
 } from "../../schemas/registerSchema";
-import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../services/auth/auth";
 import { ZodError } from "zod";

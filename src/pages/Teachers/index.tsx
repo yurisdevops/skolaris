@@ -1,6 +1,6 @@
 import styles from "./Classes.module.scss";
 
-export function Classes() {
+export function Teachers() {
   return (
     <div className={styles.dashboard}>
       <h1>Classes</h1>

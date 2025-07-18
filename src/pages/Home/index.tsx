@@ -1,4 +1,4 @@
-import styles from "./styles.module.scss";
+import styles from "./Home.module.scss";
 import background from "../../assets/background/bck01.jpg";
 import logo from "../../assets/logo/logo.png";
 import { useState } from "react";
