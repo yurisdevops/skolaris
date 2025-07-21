@@ -3,7 +3,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 jest.mock("firebase/firestore", () => ({
   getFirestore: jest.fn(() => "mockDB"),
-  doc: jest.fn((db, colletion, uid) => `mockDoc(${colletion}/${uid})`),
+  doc: jest.fn((_, colletion, uid) => `mockDoc(${colletion}/${uid})`),
   setDoc: jest.fn().mockResolvedValue(undefined),
 }));
 

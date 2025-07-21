@@ -7,7 +7,7 @@ export function Loading() {
   const { uid } = useAuthState();
 
   const finalMessage = uid
-    ? "Tudo pronto! Vamos começar 🎓"
+    ? "Tudo pronto! Vamos começar..."
     : "Usuário não identificado. Redirecionando...";
 
   const messages = [
@@ -18,19 +18,14 @@ export function Loading() {
     finalMessage,
   ];
 
-  const { currentMessage, index } = useSecureLoading(messages);
+  const { total, index, progressPercent } = useSecureLoading(messages);
 
   return (
     <div className={styles.loading}>
-      <div className={styles.container}>
-        <motion.div
-          className={styles.spinner}
-          animate={{ rotate: 360 }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "linear",
-          }}
+      <div className={styles.progressBar}>
+        <div
+          className={styles.progressFill}
+          style={{ width: `${progressPercent}%` }}
         />
       </div>
       <motion.p
@@ -41,7 +36,13 @@ export function Loading() {
         transition={{ duration: 0.6 }}
         className={styles.message}
       >
-        {currentMessage}
+        {index < messages.length ? (
+          messages[index]
+        ) : (
+          <p className={styles.messageFinal}>
+            Pronto! Entrando na plataforma...
+          </p>
+        )}
       </motion.p>
     </div>
   );

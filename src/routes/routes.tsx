@@ -1,19 +1,23 @@
+import React, { Suspense } from "react";
 import { createBrowserRouter } from "react-router";
-import { Layout } from "../components/Layout";
-import { Dashboard } from "../pages/Dashboard";
-import { Classes } from "../pages/Classes";
-import { Home } from "../pages/Home";
+import { Layout } from "../components/Layout/Layout";
+import { Home } from "../pages/Home/Home";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { useAuthState } from "../hooks/useAuthState";
 import { Loading } from "../components/Loading";
-import { Profile } from "../pages/Profile";
-import { Teachers } from "../pages/Teachers";
-import { Students } from "../pages/Students";
-import { Guardians } from "../pages/Guardians";
-import { Grades } from "../pages/Grades";
-import { Finance } from "../pages/Finance";
-import { Settings } from "../pages/Settings";
-import { Staff } from "../pages/Staff";
+import { TeacherCreate } from "../pages/Teachers/TeacherCreate";
+
+// Lazy-loaded pages
+const Dashboard = React.lazy(() => import("../pages/Dashboard/Dashboard"));
+const Classes = React.lazy(() => import("../pages/Classes/Classes"));
+const Profile = React.lazy(() => import("../pages/Profile/Profile"));
+const Teachers = React.lazy(() => import("../pages/Teachers/Teachers"));
+const Students = React.lazy(() => import("../pages/Students/Students"));
+const Guardians = React.lazy(() => import("../pages/Guardians/Guardians"));
+const Grades = React.lazy(() => import("../pages/Grades/Grades"));
+const Finance = React.lazy(() => import("../pages/Finance/Fianance"));
+const Settings = React.lazy(() => import("../pages/Settings/Settings"));
+const Staff = React.lazy(() => import("../pages/Staff/Staff"));
 
 const RootRoute = () => {
   const { loading } = useAuthState();
@@ -42,7 +46,9 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: (
           <ProtectedRoute>
-            <Dashboard />
+            <Suspense fallback={<div>Carregando Dashboard...</div>}>
+              <Dashboard />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -50,7 +56,9 @@ const router = createBrowserRouter([
         path: "/classes",
         element: (
           <ProtectedRoute>
-            <Classes />
+            <Suspense fallback={<div>Carregando Turmas...</div>}>
+              <Classes />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -58,7 +66,9 @@ const router = createBrowserRouter([
         path: "/config/profile",
         element: (
           <ProtectedRoute>
-            <Profile />
+            <Suspense fallback={<div>Carregando Perfil...</div>}>
+              <Profile />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -66,7 +76,17 @@ const router = createBrowserRouter([
         path: "/teachers",
         element: (
           <ProtectedRoute>
-            <Teachers />
+            <Suspense fallback={<div>Carregando Professores...</div>}>
+              <Teachers />
+            </Suspense>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/teachers/create",
+        element: (
+          <ProtectedRoute>
+            <TeacherCreate />
           </ProtectedRoute>
         ),
       },
@@ -74,7 +94,9 @@ const router = createBrowserRouter([
         path: "/students",
         element: (
           <ProtectedRoute>
-            <Students />
+            <Suspense fallback={<div>Carregando Alunos...</div>}>
+              <Students />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -82,7 +104,9 @@ const router = createBrowserRouter([
         path: "/guardians",
         element: (
           <ProtectedRoute>
-            <Guardians />
+            <Suspense fallback={<div>Carregando Responsáveis...</div>}>
+              <Guardians />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -90,7 +114,9 @@ const router = createBrowserRouter([
         path: "/grades",
         element: (
           <ProtectedRoute>
-            <Grades />
+            <Suspense fallback={<div>Carregando Notas...</div>}>
+              <Grades />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -98,7 +124,9 @@ const router = createBrowserRouter([
         path: "/finance",
         element: (
           <ProtectedRoute>
-            <Finance />
+            <Suspense fallback={<div>Carregando Finanças...</div>}>
+              <Finance />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -106,16 +134,19 @@ const router = createBrowserRouter([
         path: "/staff",
         element: (
           <ProtectedRoute>
-            <Staff />
+            <Suspense fallback={<div>Carregando Equipe...</div>}>
+              <Staff />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
-
       {
         path: "/settings",
         element: (
           <ProtectedRoute>
-            <Settings />
+            <Suspense fallback={<div>Carregando Configurações...</div>}>
+              <Settings />
+            </Suspense>
           </ProtectedRoute>
         ),
       },

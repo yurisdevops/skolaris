@@ -1,0 +1,73 @@
+.form {
+  height: 100%;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  label {
+    align-self: start;
+    margin-bottom: 5px;
+  }
+}
+
+.access {
+  margin-top: 10px;
+  width: 100%;
+  padding: 5px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  position: relative;
+  background-color: var(--secondary-color);
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.footer {
+  span {
+    margin-top: 12px;
+    font-size: 14px;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+.link {
+  background-color: transparent;
+  border: none;
+  transition: 0.4s all;
+  color: #b2a8d8;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.title {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  h3 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+.divisor {
+  height: 1px;
+  width: 70%;
+  background-color: var(--secondary-color);
+}

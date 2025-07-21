@@ -31,7 +31,39 @@
 
 .message {
   margin-top: 20px;
-  font-size: 1rem;
+  min-height: 1.5rem;
+  font-display: swap;
+  font-size: 1.5rem;
   color: #fff;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+.progressBar {
+  width: 80%;
+  height: 6px;
+  margin: 20px auto 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffdcbf, #f87000);
+  transition: width 0.5s ease;
+}
+.messageFinal {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f87000;
+  text-align: center;
+
+   @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 }

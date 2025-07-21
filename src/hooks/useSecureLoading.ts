@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { useAuthState } from "./useAuthState";
@@ -9,27 +9,44 @@ export function useSecureLoading(messages: string[]) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { uid } = useAuthState();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleFinalRedirect = () => {
+    dispatch(setLoading(false));
+    navigate(uid ? "/dashboard" : "/");
+  };
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    timerRef.current = setInterval(() => {
       setCurrent((prev) => {
+        // Última mensagem do array
         if (prev === messages.length - 1) {
-          clearInterval(timer);
+          clearInterval(timerRef.current!);
+
+          // Adiciona um frame extra para a mensagem final
           setTimeout(() => {
-            dispatch(setLoading(false));
-            navigate(uid ? "/dashboard" : "/");
+            setCurrent(prev + 1); // entra no estado visual final
           }, 1000);
+
+          // Redireciona após esse último frame
+          setTimeout(handleFinalRedirect, 1800);
           return prev;
         }
+
         return prev + 1;
       });
-    }, 2000);
-    return () => clearTimeout(timer);
+    }, 1700);
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
   }, []);
 
   return {
-    currentMessage: messages[current],
     index: current,
-    total: messages.length,
+    total: messages.length + 1, // inclui etapa final
+    progressPercent: Math.round(((current + 1) / (messages.length + 1)) * 100),
   };
 }

@@ -20,6 +20,11 @@
   border-color: #4a90e2;
 }
 
+.input::placeholder {
+  color: #888; // 👉 Cor do placeholder aqui
+  opacity: 1; // 👉 Garante que não fique apagado demais
+}
+
 .inputError {
   border-color: #e53935;
 }
@@ -27,4 +32,13 @@
 .errorMessage {
   color: #e53935;
   font-size: 13px;
+}
+
+select[multiple] {
+  height: 100px;
+  padding: 8px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 8px;
+  border: 1px solid #444;
 }

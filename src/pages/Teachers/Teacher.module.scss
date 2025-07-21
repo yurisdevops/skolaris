@@ -1,3 +1,118 @@
-.dashboard {
-  width: 100%;
+/* === Página principal === */
+.page {
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* === Cabeçalho === */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  h2 {
+    color: #005cc0;
+    font-size: 2rem;
+    font-weight: bold;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+/* === Botões de ação do cabeçalho === */
+.actionsHeader {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.createButton,
+.actionsHeader button {
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+}
+
+.createButton {
+  background-color: #0072ff;
+  color: #fff;
+
+  &:hover {
+    background-color: #005cc0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+.actionsHeader button {
+  background-color: transparent;
+  border: 2px solid #0072ff;
+  color: #0072ff;
+
+  &:hover {
+    background-color: #0072ff;
+    color: #fff;
+  }
+}
+
+/* === Layout em duas colunas (principal + lateral) === */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === Conteúdo principal === */
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* === Lateral com gráfico e painéis === */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  /* Você pode aplicar estilos específicos nos componentes internos, se quiser */
+}
+
+/* === Indicador de quantidade === */
+.summary {
+  font-size: 0.95rem;
+  color: #005cc0;
+  font-weight: bold;
+  margin-top: -1rem;
+}
+
+/* === Grid de cards === */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* === Estilos da página de criação /teachers/create === */
+.teacherCreate {
+  padding: 2rem;
+  min-height: 100vh;
 }

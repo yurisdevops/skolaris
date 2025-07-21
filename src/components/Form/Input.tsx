@@ -19,8 +19,8 @@ export function Input({
     <div className={styles.inputWrapper}>
       <input
         type={type}
-        {...register(name)}
         placeholder={placeholder}
+        {...register(name)}
         className={`${styles.input} ${error ? styles.inputError : ""}`}
       />
       {error && <span className={styles.errorMessage}>{error}</span>}

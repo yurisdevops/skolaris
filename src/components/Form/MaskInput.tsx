@@ -1,5 +1,5 @@
-import { IMaskInput } from "react-imask";
 import React from "react";
+import { IMaskInput } from "react-imask";
 import styles from "./Form.module.scss";
 
 interface MaskedInputProps {
