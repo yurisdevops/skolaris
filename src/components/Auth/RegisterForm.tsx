@@ -1,15 +1,15 @@
-import { useForm } from "react-hook-form";
-import styles from "./Auth.module.scss";
-import { Input } from "../Form/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { ZodError } from "zod";
 import {
   registerSchema,
   type RegisterData,
 } from "../../schemas/registerSchema";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../services/auth/auth";
-import { ZodError } from "zod";
-import toast from "react-hot-toast";
+import { Input } from "../Form/Input";
+import styles from "./Auth.module.scss";
 
 interface RegisterFormProps {
   setView: (access: "login" | "register") => void;
@@ -72,7 +72,7 @@ export function RegisterForm({ setView }: RegisterFormProps) {
           register={register}
           error={errors.confirm?.message}
         />
-        <button className={styles.access}>Entrar</button>
+        <button className={styles.access}>Cadastrar</button>
         <footer className={styles.footer}>
           <span>
             Já tem cadastro?

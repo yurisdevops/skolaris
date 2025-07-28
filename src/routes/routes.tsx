@@ -1,11 +1,13 @@
 import React, { Suspense } from "react";
 import { createBrowserRouter } from "react-router";
 import { Layout } from "../components/Layout/Layout";
-import { Home } from "../pages/Home/Home";
-import { ProtectedRoute } from "./ProtectedRoute";
-import { useAuthState } from "../hooks/useAuthState";
 import { Loading } from "../components/Loading";
+import { useAuthState } from "../hooks/useAuthState";
+import { Home } from "../pages/Home/Home";
+import ProfileEdit from "../pages/Profile/ProfileEdit";
+import UsersManage from "../pages/Profile/UsersManage";
 import { TeacherCreate } from "../pages/Teachers/TeacherCreate";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 // Lazy-loaded pages
 const Dashboard = React.lazy(() => import("../pages/Dashboard/Dashboard"));
@@ -63,11 +65,32 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/config/profile",
+        path: "/profile",
         element: (
           <ProtectedRoute>
             <Suspense fallback={<div>Carregando Perfil...</div>}>
               <Profile />
+            </Suspense>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/profile/edit",
+        element: (
+          <ProtectedRoute>
+            <Suspense fallback={<div>Carregando Perfil...</div>}>
+              <ProfileEdit />
+            </Suspense>
+          </ProtectedRoute>
+        ),
+      },
+
+      {
+        path: "/users/manage",
+        element: (
+          <ProtectedRoute>
+            <Suspense fallback={<div>Carregando Perfil...</div>}>
+              <UsersManage />
             </Suspense>
           </ProtectedRoute>
         ),

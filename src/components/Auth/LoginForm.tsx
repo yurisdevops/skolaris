@@ -1,18 +1,16 @@
-import { useForm } from "react-hook-form";
-import styles from "./Auth.module.scss";
-import { Input } from "../Form/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, type LoginData } from "../../schemas/loginSchema";
+import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { loginSchema, type LoginData } from "../../schemas/loginSchema";
+import { Input } from "../Form/Input";
+import styles from "./Auth.module.scss";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-import auth from "../../services/auth/auth";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { ZodError } from "zod";
+import auth from "../../services/auth/auth";
 import { setLoading, setUid } from "../../store/userSlice";
-import toast from "react-hot-toast";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import db from "../../services/firestore/firestore";
 
 interface LoginFormProps {
   setView: (access: "login" | "register") => void;
@@ -27,24 +25,6 @@ export function LoginForm({ setView }: LoginFormProps) {
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(loginSchema) });
 
-  async function criarEscola(uid: string) {
-    const escolaRef = doc(db, "escolas", uid);
-    const escolaSnap = await getDoc(escolaRef);
-
-    try {
-      if (!escolaSnap.exists()) {
-        await setDoc(escolaRef, {
-          dataCadastro: new Date(),
-          status: "ativa",
-          perfilCompleto: false,
-        });
-        console.log("Escola criada com sucesso");
-      }
-    } catch (error) {
-      console.log("Escola já existe", error);
-    }
-  }
-
   async function onSubmit(data: LoginData) {
     try {
       dispatch(setLoading(true));
@@ -55,8 +35,6 @@ export function LoginForm({ setView }: LoginFormProps) {
       );
       toast.success("Login efetuado!");
       dispatch(setUid(user.uid));
-
-      await criarEscola(user.uid);
 
       setTimeout(() => {
         navigate("/auth-loading");

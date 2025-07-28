@@ -1,0 +1,27 @@
+.statsContainer {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.statsList {
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+
+    strong {
+      color: #333;
+    }
+  }
+}

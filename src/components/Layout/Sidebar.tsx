@@ -1,4 +1,5 @@
 import { FaUserTie } from "react-icons/fa";
+import { HiLogout } from "react-icons/hi";
 import {
   MdAssignment,
   MdAttachMoney,
@@ -12,7 +13,8 @@ import {
 import styles from "./Layout.module.scss";
 
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import type { AppDispatch } from "../../store";
 import { clearUid } from "../../store/userSlice";
 
 interface SidebarProps {
@@ -23,10 +25,13 @@ interface SidebarProps {
 export function Sidebar({ open, theme }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
+
   function navigation(link: string) {
     navigate(`${link}`);
   }
+
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <aside
       className={`${styles.sidebar} ${
@@ -145,10 +150,22 @@ export function Sidebar({ open, theme }: SidebarProps) {
       </nav>
 
       <div className={styles.profile}>
-        <span onClick={() => navigate("/config/profile")}>Yuri</span>
-        <button className={styles.logout} onClick={() => dispatch(clearUid())}>
-          sair
-        </button>
+        <Link to={"/profile"}>
+          {" "}
+          <img src="/images/escola.webp" alt="Profile" />
+        </Link>
+
+        {open && (
+          <>
+            <Link to={"/profile"}>Perfil</Link>
+            <button
+              className={styles.logout}
+              onClick={() => dispatch(clearUid())}
+            >
+              <HiLogout size={32} />
+            </button>
+          </>
+        )}
       </div>
     </aside>
   );

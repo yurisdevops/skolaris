@@ -1,21 +1,34 @@
-import { Controller, useForm } from "react-hook-form";
-import { Input } from "../Form/Input";
-import { MaskedInput } from "../Form/MaskInput";
-import { Select } from "../Form/Select";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { useCepAutoFill } from "../../hooks/useCepAutoFill";
 import {
   institutionSchema,
   type institutionData,
 } from "../../schemas/profileSchema";
+import type { AppDispatch, RootState } from "../../store";
+import {
+  resetStatus,
+  updateInstitutionProfile,
+} from "../../store/institutionSlice";
+import { Input } from "../Form/Input";
+import { MaskedInput } from "../Form/MaskInput";
+import { Select } from "../Form/Select";
 import styles from "./ProfileForm.module.scss";
-import auth from "../../services/auth/auth";
-import { doc, setDoc } from "firebase/firestore";
-import db from "../../services/firestore/firestore";
-import { useNavigate } from "react-router";
-import toast from "react-hot-toast";
-import { useCepAutoFill } from "../../hooks/useCepAutoFill";
 
-export function ProfileForm() {
+interface ProfileFormProps {
+  initialData: institutionData | null;
+}
+
+export function ProfileForm({ initialData }: ProfileFormProps) {
+  const [perfilEnviado, setPerfilEnviado] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const { error, success } = useSelector(
+    (state: RootState) => state.institution
+  );
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -27,6 +40,12 @@ export function ProfileForm() {
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(institutionSchema) });
 
+  useEffect(() => {
+    if (initialData) {
+      reset(initialData);
+    }
+  }, [initialData, reset]);
+
   useCepAutoFill(watch, setValue, {
     zipCode: "zipCode",
     address: "address",
@@ -34,30 +53,29 @@ export function ProfileForm() {
     state: "state",
   });
 
-  async function onSubmit(data: institutionData) {
-    const user = auth.currentUser;
-    if (user) {
-      const uid = user.uid;
-      await setDoc(
-        doc(db, "escolas", uid),
-        {
-          uid,
-          dadosGerais: data,
-          perfilCompleto: true,
-        },
-        { merge: true }
-      );
-      navigate("/dashboard");
+  useEffect(() => {
+    if (success && perfilEnviado) {
       toast.success("Perfil Concluído!");
+      navigate("/dashboard");
       reset();
+      dispatch(resetStatus());
     }
+
+    if (error) {
+      toast.error("Erro: " + error);
+    }
+  }, [success, error]);
+
+  async function onSubmit(data: institutionData) {
+    setPerfilEnviado(true);
+    dispatch(updateInstitutionProfile(data));
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <section className={styles.formContainer}>
         <aside className={styles.formContent}>
-          <h3 className={styles.title}>Cadastro Institucional</h3>
+          <h3 className={styles.title}>Institucional</h3>
 
           <Input
             type="text"
@@ -65,6 +83,13 @@ export function ProfileForm() {
             register={register}
             placeholder="Nome da instituição"
             error={errors.name?.message}
+          />
+          <Input
+            type="text"
+            name="acronym"
+            register={register}
+            placeholder="Sigla da instituição"
+            error={errors.acronym?.message}
           />
 
           <Controller
@@ -117,6 +142,7 @@ export function ProfileForm() {
                 {...field}
                 mask="(00) 0 0000-0000"
                 error={errors.phone?.message}
+                placeholder="(00) 00000-0000"
               />
             )}
           />

@@ -1,7 +1,7 @@
-import styles from "./Loading.module.scss";
 import { motion } from "motion/react";
 import { useAuthState } from "../../hooks/useAuthState";
 import { useSecureLoading } from "../../hooks/useSecureLoading";
+import styles from "./Loading.module.scss";
 
 export function Loading() {
   const { uid } = useAuthState();
@@ -18,7 +18,7 @@ export function Loading() {
     finalMessage,
   ];
 
-  const { total, index, progressPercent } = useSecureLoading(messages);
+  const { index, progressPercent } = useSecureLoading(messages);
 
   return (
     <div className={styles.loading}>
@@ -39,9 +39,9 @@ export function Loading() {
         {index < messages.length ? (
           messages[index]
         ) : (
-          <p className={styles.messageFinal}>
+          <span className={styles.messageFinal}>
             Pronto! Entrando na plataforma...
-          </p>
+          </span>
         )}
       </motion.p>
     </div>

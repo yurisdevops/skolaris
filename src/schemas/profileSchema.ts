@@ -1,8 +1,9 @@
-import { z } from "zod";
 import { cnpj } from "cpf-cnpj-validator";
+import { z } from "zod";
 
 export const institutionSchema = z.object({
   name: z.string().min(2, "Nome obrigatório"),
+  acronym: z.string().min(2, "Sigla obrigatório"),
   cnpj: z.string().refine(cnpj.isValid, {
     message: "CNPJ inválido",
   }),
