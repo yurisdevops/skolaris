@@ -11,34 +11,41 @@ import {
 import auth from "../services/auth/auth";
 import db from "../services/firestore/firestore";
 
+// Define o formato do estado da instituição.
+// Inclui indicadores de carregamento, sucesso, erro, nome da instituição e dados do perfil.
 interface InstitutionState {
-  loading: boolean;
-  success: boolean;
-  error: string | null;
-  name: string | null;
-  data: institutionData | null;
+  loading: boolean; // Indica se há operação assíncrona em andamento.
+  success: boolean; // Indica se a última operação foi concluída com sucesso.
+  error: string | null; // Armazena mensagens de erro, se houver.
+  name: string | null; // Nome (sigla) da instituição.
+  data: institutionData | null; // Dados completos do perfil da instituição.
 }
 
+// Thunk que atualiza o perfil da instituição no Firestore.
+// Recebe os dados e salva na coleção "escolas" com o uid do usuário.
+// Retorna o uid após o salvamento.
 export const updateInstitutionProfile = createAsyncThunk(
   "institution/updateProfile",
   async (data: institutionData, _thunkAPI) => {
-    const user = auth.currentUser;
+    const user = auth.currentUser; // Obtém usuário atual do Firebase
     if (!user) throw new Error("Usuário não autenticado");
 
     const uid = user.uid;
     await setDoc(
-      doc(db, "escolas", uid),
+      doc(db, "escolas", uid), // Referência ao documento da instituição
       {
         uid,
         dadosGerais: data,
         perfilCompleto: true,
       },
-      { merge: true }
+      { merge: true } // Faz merge com dados existentes no Firestore
     );
     return uid;
   }
 );
 
+// Thunk que busca o nome (sigla) da instituição no Firestore.
+// Retorna a sigla extraída de `dadosGerais.acronym`.
 export const getNameInstitution = createAsyncThunk(
   "institution/nameInstitution",
   async () => {
@@ -51,13 +58,16 @@ export const getNameInstitution = createAsyncThunk(
 
     if (escolaSnap.exists()) {
       const response = escolaSnap.data();
-      return response.dadosGerais.acronym;
+      return response.dadosGerais.acronym; // Retorna a sigla da instituição
     }
 
     throw new Error("Escola não encontrada");
   }
 );
 
+// Thunk que busca o perfil completo da instituição.
+// Valida os dados usando o schema Zod.
+// Retorna os dados se válidos, ou lança erro.
 export const getInstitutionProfile = createAsyncThunk(
   "institution/getProfile",
   async () => {
@@ -71,13 +81,15 @@ export const getInstitutionProfile = createAsyncThunk(
     if (!snapshot.exists()) throw new Error("Perfil não encontrado");
 
     const raw = snapshot.data()?.dadosGerais;
-    const result = institutionSchema.safeParse(raw);
+    const result = institutionSchema.safeParse(raw); // Valida usando schema
 
-    if (!result.success) throw result.error;
+    if (!result.success) throw result.error; // Se falhar, lança erro Zod
     return result.data;
   }
 );
 
+// Estado inicial do slice.
+// Assume nenhum dado carregado, sem erros e ainda não carregando.
 const initialState: InstitutionState = {
   loading: false,
   success: false,
@@ -86,10 +98,13 @@ const initialState: InstitutionState = {
   data: null,
 };
 
+// Criação do slice `institution` com Redux Toolkit.
+// Inclui reducers sincronizados e integração com thunks assíncronos.
 const institutionSlice = createSlice({
   name: "institution",
   initialState,
   reducers: {
+    // Reseta os indicadores de status (`loading`, `success`, `error`)
     resetStatus(state) {
       state.loading = false;
       state.success = false;
@@ -98,6 +113,7 @@ const institutionSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Estados de carregamento quando cada thunk inicia
       .addCase(updateInstitutionProfile.pending, (state) => {
         state.loading = true;
       })
@@ -107,10 +123,14 @@ const institutionSlice = createSlice({
       .addCase(getInstitutionProfile.pending, (state) => {
         state.loading = true;
       })
+
+      // Quando o perfil for atualizado com sucesso
       .addCase(updateInstitutionProfile.fulfilled, (state) => {
         state.loading = false;
         state.success = true;
       })
+
+      // Quando o nome da instituição for carregado com sucesso
       .addCase(
         getNameInstitution.fulfilled,
         (state, action: PayloadAction<string>) => {
@@ -119,6 +139,8 @@ const institutionSlice = createSlice({
           state.name = action.payload;
         }
       )
+
+      // Quando o perfil da instituição for carregado com sucesso
       .addCase(
         getInstitutionProfile.fulfilled,
         (state, action: PayloadAction<institutionData>) => {
@@ -127,6 +149,8 @@ const institutionSlice = createSlice({
           state.data = action.payload;
         }
       )
+
+      // Tratamento de erros em cada operação
       .addCase(updateInstitutionProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Erro ao salvar perfil";
@@ -142,5 +166,8 @@ const institutionSlice = createSlice({
   },
 });
 
+// Exporta a action `resetStatus` para redefinir estado manualmente
 export const { resetStatus } = institutionSlice.actions;
+
+// Exporta o reducer para inclusão na store
 export default institutionSlice.reducer;

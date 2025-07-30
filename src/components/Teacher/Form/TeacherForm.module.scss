@@ -30,7 +30,7 @@
   margin-bottom: 8px;
   font-size: 1.6rem;
   font-weight: bold;
-  color: #00c6ff;
+  color: var(--color-text);
   text-align: center;
 }
 
@@ -38,7 +38,7 @@
   margin-top: 12px;
   font-size: 1.2rem;
   font-weight: 500;
-  color: #00ffcc;
+  color: var(--color-text);
   text-align: left;
 }
 
@@ -46,7 +46,7 @@
   height: 2px;
   width: 60px;
   margin: 0 auto 16px;
-  background-color: #0072ff;
+  background-color: var(--color-secondary);
   border-radius: 4px;
 }
 
@@ -55,8 +55,8 @@
   align-self: center;
   padding: 10px 24px;
   font-size: 1rem;
-  background: #0072ff;
-  color: #000;
+  background: var(--color-accent);
+  color: var(--color-white);
   border: none;
   border-radius: 8px;
   font-weight: bold;
@@ -82,7 +82,7 @@ input::placeholder {
 }
 
 input.error {
-  border: 1px solid #ff4d4d;
+  border: 1px solid var(--color-error);
   box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.3);
 }
 

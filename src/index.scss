@@ -6,15 +6,47 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-
 :root {
-  --primary-color: #1a1a1a;
-  --secondary-color: #c0bfbe;
-  --background-color: #f5f7fa;
-  --hover-color: #9e9d9d;
-  --active-indicator: #e0e0e0;
-  --text-color: #222222;
+  /* === Brand Colors === */
+  --color-primary: #003f5c; /* Azul petróleo principal */
+  --color-accent: #fb6e00; /* Laranja vibrante para CTAs */
+  --color-accent-hover: #f76c6c; /* Laranja mais claro para hover */
+  --color-secondary: #0096c7; /* Azul claro de apoio */
+  --color-background-card: #d4d4d4; /* Fundo claro principal */
+
+  /* === Neutral Colors === */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-red: #ef476f;
+  --color-gray-100: #f5f7fa; /* Fundo principal (claro) */
+  --color-gray-200: #eaeaea; /* Cards, caixas, hover */
+  --color-gray-300: #c0bfbe; /* Elementos neutros, bordas */
+  --color-gray-400: #9e9d9d; /* Hover, inativos */
+  --color-gray-500: #666666; /* Texto secundário */
+  --color-text: #1a1a1a; /* Texto principal */
+
+  /* === States === */
+  --color-success: #228b22; /* Status positivo */
+  --color-bg-success: #d4f6da; /* Status positivo */
+  --color-error: #ef476f; /* Erros, alertas */
+  --color-bg-error: #fde2e2; /* Erros, alertas */
+  --color-warning: #faae2b; /* Avisos */
+  --color-bg-warning: #fff5cc; /* Avisos */
+
+  /* === UI === */
   --border-radius: 8px;
-  --font-family: "Arial", sans-serif;
-  --white: #fff;
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* === Dark Mode === */
+[data-theme="dark"] {
+  --color-background: #1e1e1e;
+  --color-surface: #121212;
+  --color-text: #f5f5f5;
+  --color-gray-100: #2a2a2a;
+  --color-gray-200: #333333;
+  --color-gray-300: #444444;
+  --color-gray-400: #666666;
+  --color-background-card: #797979;
 }

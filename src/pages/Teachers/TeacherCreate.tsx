@@ -6,7 +6,7 @@ export function TeacherCreate() {
     <main className={styles.teacherCreate}>
       <section className={styles.header}>
         <Link to="/teachers" className={styles.createButton}>
-          ← Voltar para painel
+          ← Voltar ao Painel
         </Link>
       </section>
       <TeacherForm />

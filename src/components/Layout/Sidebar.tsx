@@ -36,7 +36,7 @@ export function Sidebar({ open, theme }: SidebarProps) {
     <aside
       className={`${styles.sidebar} ${
         !open ? styles.sidebarClosed : styles.sidebarOpen
-      } ${theme === "dark" ? styles.dark : styles.light}`}
+      } `}
     >
       <nav className={styles.nav}>
         <ul className={styles.navList}>

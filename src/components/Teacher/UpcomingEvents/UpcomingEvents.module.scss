@@ -1,5 +1,5 @@
 .events {
-  background-color: #fdfdfd;
+  background-color: var(--color-background-card);
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
@@ -7,12 +7,12 @@
   h4 {
     font-size: 1rem;
     margin-bottom: 1rem;
-    color: #005cc0;
+    color: var(--color-text);
   }
 
   li {
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
-    color: #444;
+    color: var(--color-text);
   }
 }

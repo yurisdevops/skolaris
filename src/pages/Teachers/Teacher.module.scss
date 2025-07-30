@@ -16,7 +16,7 @@
   flex-wrap: wrap;
 
   h2 {
-    color: #005cc0;
+    color: var(--color-text);
     font-size: 2rem;
     font-weight: bold;
 
@@ -46,11 +46,12 @@
 }
 
 .createButton {
-  background-color: #0072ff;
-  color: #fff;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
 
   &:hover {
-    background-color: #005cc0;
+    background-color: var(--color-accent);
+    color: var(--color-white);
   }
 
   @media (max-width: 768px) {
@@ -60,12 +61,12 @@
 
 .actionsHeader button {
   background-color: transparent;
-  border: 2px solid #0072ff;
-  color: #0072ff;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
 
   &:hover {
-    background-color: #0072ff;
-    color: #fff;
+    background-color: var(--color-accent);
+    color: var(--color-white);
   }
 }
 
@@ -96,23 +97,9 @@
   /* Você pode aplicar estilos específicos nos componentes internos, se quiser */
 }
 
-/* === Indicador de quantidade === */
-.summary {
-  font-size: 0.95rem;
-  color: #005cc0;
-  font-weight: bold;
-  margin-top: -1rem;
-}
-
 /* === Grid de cards === */
 .cardsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
-}
-
-/* === Estilos da página de criação /teachers/create === */
-.teacherCreate {
-  padding: 2rem;
-  min-height: 100vh;
 }

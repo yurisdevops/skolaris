@@ -24,6 +24,10 @@ export function Layout() {
     localStorage.setItem("sidebarOpen", String(sidebarOpen));
   }, [sidebarOpen]);
 
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
   return (
     <>
       <Header

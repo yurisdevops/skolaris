@@ -25,7 +25,7 @@ export function TeacherStatusChart({ data }: TeacherStatusProps) {
         label: "Distribuição de cargos",
         data: [data.professores, data.coordenadores, data.inativos],
         backgroundColor: ["#00c6ff", "#0072ff", "#666"],
-        borderColor: "#111",
+        borderColor: "var(--color-white)",
         borderWidth: 2,
       },
     ],
@@ -37,17 +37,17 @@ export function TeacherStatusChart({ data }: TeacherStatusProps) {
     scales: {
       y: {
         beginAtZero: true,
-        ticks: { color: "#fff" },
-        grid: { color: "#333" },
+        ticks: { color: "var(--color-white)" },
+        grid: { color: "var(--color-text)" },
       },
       x: {
-        ticks: { color: "#fff" },
+        ticks: { color: "var(--color-text)" },
         grid: { display: false },
       },
     },
     plugins: {
       legend: {
-        labels: { color: "#fff" },
+        labels: { color: "var(--color-text)" },
       },
     },
   };
