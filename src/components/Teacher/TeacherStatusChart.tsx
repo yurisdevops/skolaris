@@ -7,6 +7,7 @@ import {
   Tooltip,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import styles from "./TeacherControls.module.scss";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -25,7 +26,7 @@ export function TeacherStatusChart({ data }: TeacherStatusProps) {
         label: "Distribuição de cargos",
         data: [data.professores, data.coordenadores, data.inativos],
         backgroundColor: ["#00c6ff", "#0072ff", "#666"],
-        borderColor: "var(--color-white)",
+        borderColor: "#ffffff",
         borderWidth: 2,
       },
     ],
@@ -37,31 +38,25 @@ export function TeacherStatusChart({ data }: TeacherStatusProps) {
     scales: {
       y: {
         beginAtZero: true,
-        ticks: { color: "var(--color-white)" },
-        grid: { color: "var(--color-text)" },
+        ticks: { color: "#ffffffff" },
+        grid: {
+          color: "#ffffffff",
+        },
       },
       x: {
-        ticks: { color: "var(--color-text)" },
-        grid: { display: false },
+        ticks: { color: "#fff" },
+        grid: { color: "#ffffffff" },
       },
     },
     plugins: {
       legend: {
-        labels: { color: "var(--color-text)" },
+        labels: { color: "#ffffff" },
       },
     },
   };
 
   return (
-    <div
-      style={{
-        height: "200px",
-        width: "100%",
-        border: "2px solid #fff",
-        padding: "10px",
-        borderRadius: "10px",
-      }}
-    >
+    <div className={styles.chartWrapper}>
       <Bar data={chartData} options={options} />
     </div>
   );

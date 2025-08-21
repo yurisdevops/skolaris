@@ -5,8 +5,7 @@
   width: 100%;
 }
 
-.input,
-.select {
+.input {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -14,8 +13,7 @@
   transition: border-color 0.2s ease;
 }
 
-.input:focus,
-.select:focus {
+.input:focus {
   outline: none;
   border-color: #4a90e2;
 }
@@ -32,13 +30,4 @@
 .errorMessage {
   color: #e53935;
   font-size: 13px;
-}
-
-select[multiple] {
-  height: 100px;
-  padding: 8px;
-  background-color: #fff;
-  color: #000;
-  border-radius: 8px;
-  border: 1px solid #444;
 }

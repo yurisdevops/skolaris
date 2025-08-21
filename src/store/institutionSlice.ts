@@ -53,11 +53,11 @@ export const getNameInstitution = createAsyncThunk(
     if (!user) throw new Error("Usuário não autenticado");
 
     const uid = user.uid;
-    const escolaRef = doc(db, "escolas", uid);
-    const escolaSnap = await getDoc(escolaRef);
+    const docRef = doc(db, "escolas", uid);
+    const docSnap = await getDoc(docRef);
 
-    if (escolaSnap.exists()) {
-      const response = escolaSnap.data();
+    if (docSnap.exists()) {
+      const response = docSnap.data();
       return response.dadosGerais.acronym; // Retorna a sigla da instituição
     }
 
@@ -78,12 +78,12 @@ export const getInstitutionProfile = createAsyncThunk(
     const docRef = doc(db, "escolas", uid);
     const snapshot = await getDoc(docRef);
 
-    if (!snapshot.exists()) throw new Error("Perfil não encontrado");
+    if (!snapshot.exists()) return null; // <- perfil ainda não criado
 
     const raw = snapshot.data()?.dadosGerais;
-    const result = institutionSchema.safeParse(raw); // Valida usando schema
+    const result = institutionSchema.safeParse(raw);
 
-    if (!result.success) throw result.error; // Se falhar, lança erro Zod
+    if (!result.success) throw result.error;
     return result.data;
   }
 );
@@ -125,9 +125,10 @@ const institutionSlice = createSlice({
       })
 
       // Quando o perfil for atualizado com sucesso
-      .addCase(updateInstitutionProfile.fulfilled, (state) => {
+      .addCase(updateInstitutionProfile.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
+        state.data = action.meta.arg; // Armazena o uid retornado
       })
 
       // Quando o nome da instituição for carregado com sucesso
@@ -143,10 +144,10 @@ const institutionSlice = createSlice({
       // Quando o perfil da instituição for carregado com sucesso
       .addCase(
         getInstitutionProfile.fulfilled,
-        (state, action: PayloadAction<institutionData>) => {
+        (state, action: PayloadAction<institutionData | null>) => {
           state.loading = false;
           state.success = true;
-          state.data = action.payload;
+          state.data = action.payload; // pode ser null
         }
       )
 

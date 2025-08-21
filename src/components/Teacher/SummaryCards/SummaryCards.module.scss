@@ -6,7 +6,7 @@
 .card {
   flex: 1;
   padding: 1rem;
-  background-color: var(--color-background-card);
+  background-color: var(--color-primary);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -14,12 +14,12 @@
   h4 {
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
-    color: var(--color-text);
+    color: var(--color-white);
   }
 
   span {
     font-size: 1.8rem;
     font-weight: bold;
-    color: var(--color-primary);
+    color: var(--color-accent);
   }
 }

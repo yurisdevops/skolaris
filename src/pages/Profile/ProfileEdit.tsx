@@ -17,7 +17,7 @@ export default function ProfileEdit() {
   }, [uid]);
 
   if (loading) return <p>Carregando dados da instituição...</p>;
-  if (error) return <p>Erro: {error}</p>;
+  // if (error) return <p>Erro: {error}</p>;
 
   const isEditMode = !!data;
 

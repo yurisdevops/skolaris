@@ -1,8 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../store";
+import { updateStatusTeacher } from "../../../store/teacherSlice";
 import styles from "./TeacherDetails.module.scss";
 
 interface TeacherDetailsProps {
   teacher: {
+    id: string;
     nome: string;
     email: string;
     disciplinas: string[];
@@ -13,6 +17,9 @@ interface TeacherDetailsProps {
 
 export function TeacherDetails({ teacher, onClose }: TeacherDetailsProps) {
   const modalRef = useRef<HTMLDialogElement>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
     function handleCLickOutside(event: MouseEvent) {
       if (
@@ -51,8 +58,27 @@ export function TeacherDetails({ teacher, onClose }: TeacherDetailsProps) {
           {teacher.disciplinas.join(", ")}
         </p>
         <div className={styles.actions}>
-          <button className={styles.edit}>Editar</button>
-          <button className={styles.danger}> Desativar</button>
+          <button
+            className={styles.edit}
+            onClick={() => setIsEditing(!isEditing)}
+            disabled={isEditing}
+          >
+            Editar
+          </button>
+          <button
+            className={styles.danger}
+            disabled={!isEditing}
+            onClick={() => {
+              const novoStatus =
+                teacher.status === "ativo" ? "inativo" : "ativo";
+              dispatch(
+                updateStatusTeacher({ id: teacher.id, status: novoStatus })
+              );
+              onClose();
+            }}
+          >
+            {teacher.status === "ativo" ? "Desativar" : "Ativar"}
+          </button>
         </div>
       </aside>
     </section>

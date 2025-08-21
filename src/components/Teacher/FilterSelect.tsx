@@ -1,4 +1,23 @@
 import styles from "./TeacherControls.module.scss";
+const subjects = [
+  "Matemática",
+  "Português",
+  "Física",
+  "História",
+  "Geografia",
+  "Química",
+  "Biologia",
+  "Educação Física",
+  "Artes",
+  "Inglês",
+  "Espanhol",
+  "Informática",
+  "Filosofia",
+  "Sociologia",
+  "Educação Religiosa",
+  "Língua Estrangeira",
+  "Outros",
+];
 
 export function FilterSelect({
   onSelect,
@@ -12,10 +31,11 @@ export function FilterSelect({
       onChange={(e) => onSelect(e.target.value)}
     >
       <option value="">Todas as disciplinas</option>
-      <option value="Math">Matemática</option>
-      <option value="Portuguese">Português</option>
-      <option value="History">História</option>
-      <option value="Physics">Física</option>
+      {subjects.map((subject) => (
+        <option key={subject} value={subject}>
+          {subject}
+        </option>
+      ))}
     </select>
   );
 }

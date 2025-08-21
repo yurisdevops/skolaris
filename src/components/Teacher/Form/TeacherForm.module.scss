@@ -64,7 +64,7 @@
   transition: background 0.3s ease;
 
   &:hover {
-    background: #00c6ff;
+    background: var(--color-accent-hover);
   }
 
   &:disabled {

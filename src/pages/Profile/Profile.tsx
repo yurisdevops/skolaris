@@ -16,7 +16,6 @@ export default function Profile() {
   useEffect(() => {
     dispatch(getInstitutionProfile());
   }, []);
-  console.log(data);
   return (
     <main className={styles.profile}>
       {/* <ProfileForm /> */}

@@ -12,18 +12,17 @@
     cursor: pointer;
     text-decoration: none;
     border: none;
-    border: 2px solid var(--color-accent);
-    color: var(--color-accent);
+    color: var(--color-white);
 
+    background-color: var(--color-accent);
     &:hover {
-      background-color: var(--color-accent);
-      color: var(--color-white);
+      background-color: var(--color-accent-hover);
     }
   }
 
   .title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--color-accent);
   }
 }

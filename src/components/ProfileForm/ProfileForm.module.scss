@@ -37,6 +37,13 @@
   position: absolute;
   bottom: 40px;
   right: 40px;
+  color: var(--color-white);
+  background-color: var(--color-accent);
+
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: var(--color-accent-hover);
+  }
 
   @media (max-width: 768px) {
     position: relative;

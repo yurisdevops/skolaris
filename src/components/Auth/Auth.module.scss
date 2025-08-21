@@ -7,6 +7,8 @@
   label {
     align-self: start;
     margin-bottom: 5px;
+    font-size: 16px;
+    color: var(--color-white);
   }
 }
 
@@ -17,7 +19,7 @@
   font-size: 18px;
   border-radius: 8px;
   border: none;
-  color: var(--primary-color);
+  color: var(--color-white);
   font-weight: bold;
   position: relative;
   background-color: var(--secondary-color);
@@ -38,6 +40,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    color: var(--color-white);
   }
 }
 
@@ -64,6 +67,7 @@
   h3 {
     font-size: 24px;
     font-weight: bold;
+    color: var(--color-white);
   }
 }
 .divisor {

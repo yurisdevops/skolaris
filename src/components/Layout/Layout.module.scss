@@ -129,6 +129,10 @@
   &.active {
     font-weight: 500;
 
+    svg, span {
+      color: var(--color-accent);
+    }
+
     &::after {
       content: "";
       position: absolute;

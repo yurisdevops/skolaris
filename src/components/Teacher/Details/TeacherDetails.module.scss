@@ -48,7 +48,7 @@
 }
 
 .edit {
-  background-color: var(--color-secondary);
+  background-color: var(--color-accent);
   color: var(--color-white);
   border: none;
   padding: 10px 20px;
@@ -56,6 +56,11 @@
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
+}
+
+.edit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .danger {
@@ -67,4 +72,9 @@
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
+}
+
+.danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

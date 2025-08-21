@@ -3,7 +3,7 @@ import axios from "axios";
 import { doc, setDoc } from "firebase/firestore";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Select } from "../../../components/Form/Select";
+import { CustomSelect } from "../../../components/Form/Select";
 import { useAuthState } from "../../../hooks/useAuthState";
 import { useCepAutoFill } from "../../../hooks/useCepAutoFill";
 import {
@@ -14,6 +14,28 @@ import db from "../../../services/firestore/firestore";
 import { Input } from "../../Form/Input";
 import { MaskedInput } from "../../Form/MaskInput";
 import styles from "./TeacherForm.module.scss";
+
+const subjects = [
+  "Matemática",
+  "Português",
+  "Física",
+  "História",
+  "Geografia",
+  "Química",
+  "Biologia",
+  "Educação Física",
+  "Artes",
+  "Inglês",
+  "Espanhol",
+  "Informática",
+  "Filosofia",
+  "Sociologia",
+  "Educação Religiosa",
+  "Língua Estrangeira",
+  "Outros",
+];
+
+const roles = ["Professor", "Coordenador", "Outro"];
 
 export function TeacherForm() {
   const { uid } = useAuthState();
@@ -88,13 +110,13 @@ export function TeacherForm() {
       >
         <section className={styles.formContainer}>
           <aside className={styles.formContent}>
-            <h3 className={styles.title}>Teacher Registration</h3>
+            <h3 className={styles.title}>Dados Pessoais</h3>
 
             <Input
               type="text"
               name="fullName"
               register={register}
-              placeholder="Full name"
+              placeholder="Nome completo"
               error={errors.fullName?.message}
             />
 
@@ -113,24 +135,26 @@ export function TeacherForm() {
                 <MaskedInput
                   {...field}
                   mask="(00) 0 0000-0000"
-                  placeholder="Phone"
+                  placeholder="Telefone"
                   error={errors.phone?.message}
                 />
               )}
             />
 
-            <Select
+            <CustomSelect
               name="subjects"
               multiple
-              options={["Math", "Portuguese", "Physics", "History"]}
-              register={register}
+              options={subjects}
+              placeholder="Selecione as disciplinas"
+              control={control}
               error={errors.subjects?.message}
             />
 
-            <Select
+            <CustomSelect
+              placeholder="Selecione Cargo"
               name="role"
-              options={["Professor", "Coordinator", "Other"]}
-              register={register}
+              options={roles}
+              control={control}
               error={errors.role?.message}
             />
 
@@ -141,7 +165,7 @@ export function TeacherForm() {
                 <MaskedInput
                   {...field}
                   mask="00000-000"
-                  placeholder="ZIP Code"
+                  placeholder="CEP"
                   error={errors.zipCode?.message}
                 />
               )}
@@ -151,7 +175,7 @@ export function TeacherForm() {
               type="text"
               name="address"
               register={register}
-              placeholder="Address"
+              placeholder="Endereço"
               error={errors.address?.message}
             />
 
@@ -159,7 +183,7 @@ export function TeacherForm() {
               type="text"
               name="city"
               register={register}
-              placeholder="City"
+              placeholder="Cidade"
               error={errors.city?.message}
             />
 
@@ -167,19 +191,19 @@ export function TeacherForm() {
               type="text"
               name="state"
               register={register}
-              placeholder="State"
+              placeholder="Estado"
               error={errors.state?.message}
             />
           </aside>
 
           <aside className={styles.formContent}>
-            <h3 className={styles.subtitle}>Authentication</h3>
+            <h3 className={styles.subtitle}>Autentificação</h3>
 
             <Input
               type="password"
               name="password"
               register={register}
-              placeholder="Password"
+              placeholder="Senha"
               error={errors.password?.message}
             />
 
@@ -187,7 +211,7 @@ export function TeacherForm() {
               type="password"
               name="confirmPassword"
               register={register}
-              placeholder="Confirm password"
+              placeholder="Confirmar senha"
               error={errors.confirmPassword?.message}
             />
           </aside>

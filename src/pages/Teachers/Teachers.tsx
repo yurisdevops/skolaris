@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { TeacherCard } from "../../components/Teacher/Card/TeacherCard";
 import { TeacherDetails } from "../../components/Teacher/Details/TeacherDetails";
 import { FilterSelect } from "../../components/Teacher/FilterSelect";
@@ -9,6 +10,8 @@ import { SearchBar } from "../../components/Teacher/SearchBar";
 import { SummaryCards } from "../../components/Teacher/SummaryCards/SummaryCards";
 import { TeacherStatusChart } from "../../components/Teacher/TeacherStatusChart";
 import { UpcomingEvents } from "../../components/Teacher/UpcomingEvents/UpcomingEvents";
+import type { AppDispatch, RootState } from "../../store";
+import { getAllTeachers } from "../../store/teacherSlice";
 import styles from "./Teacher.module.scss";
 
 type Teacher = {
@@ -30,28 +33,17 @@ export default function Teachers() {
   const [filtered, setFiltered] = useState<Teacher[]>([]);
   const [filterDiscipline, setFilterDiscipline] = useState("");
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  const { teachersList } = useSelector((state: RootState) => state.teacher);
 
   useEffect(() => {
-    // Simulação de fetch — substituir por chamada ao Firestore
-    const mock = [
-      {
-        id: "1",
-        nome: "Ana",
-        disciplinas: ["Math"],
-        email: "ana@escola.com",
-        status: "ativo",
-      },
-      {
-        id: "2",
-        nome: "Carlos",
-        disciplinas: ["History"],
-        email: "carlos@escola.com",
-        status: "inativo",
-      },
-    ];
-    setTeachers(mock);
-    setFiltered(mock);
-  }, []);
+    dispatch(getAllTeachers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setTeachers(teachersList);
+    setFiltered(teachersList);
+  }, [teachersList]);
 
   const handleSearch = (query: string) => {
     const result = teachers.filter(

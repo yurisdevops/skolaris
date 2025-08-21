@@ -16,34 +16,33 @@ import {
 } from "../../store/institutionSlice";
 import { Input } from "../Form/Input";
 import { MaskedInput } from "../Form/MaskInput";
-import { Select } from "../Form/Select";
+import { CustomSelect } from "../Form/Select";
 import styles from "./ProfileForm.module.scss";
 
 // Componente responsável por preencher e enviar o formulário do perfil institucional.
 // Utiliza hooks para validação, preenchimento automático via CEP, integração com Redux e navegação pós-envio.
 
 interface ProfileFormProps {
-  initialData: institutionData | null; // Dados iniciais do perfil que serão preenchidos no formulário (caso já existam)
+  initialData: institutionData | null;
 }
 
 export function ProfileForm({ initialData }: ProfileFormProps) {
   const [perfilEnviado, setPerfilEnviado] = useState(false); // Controla se o perfil já foi enviado
 
-  const dispatch = useDispatch<AppDispatch>(); // Permite disparar ações Redux tipadas
+  const dispatch = useDispatch<AppDispatch>();
   const { error, success } = useSelector(
     (state: RootState) => state.institution
-  ); // Lê estado de envio do perfil
-  const navigate = useNavigate(); // Redireciona o usuário após envio
+  );
+  const navigate = useNavigate();
 
-  // Inicializa o formulário com validação baseada no Zod e captura utilitários
   const {
-    handleSubmit, // Função que prepara e envia os dados
-    register, // Associa inputs ao formulário
+    handleSubmit,
+    register,
     watch, // Observa campos dinamicamente (usado para CEP)
-    setValue, // Permite alterar valores de campos programaticamente
-    reset, // Reseta o formulário
+    setValue,
+    reset,
     control, // Controla campos não padrão (ex: MaskedInput)
-    formState: { errors, isSubmitting }, // Exibe erros e controla estado de envio
+    formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(institutionSchema) });
 
   // Se houver dados iniciais, preenche automaticamente os campos
@@ -64,14 +63,13 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
   // Monitora os resultados do envio: sucesso ou erro
   useEffect(() => {
     if (success && perfilEnviado) {
-      toast.success("Perfil Concluído!");
-      navigate("/dashboard"); // Redireciona após sucesso
-      reset(); // Limpa o formulário
-      dispatch(resetStatus()); // Reseta estado da store
+      navigate("/dashboard");
+      reset();
+      dispatch(resetStatus());
     }
 
     if (error) {
-      toast.error("Erro: " + error); // Exibe erro de envio
+      console.error("Erro: " + error);
     }
   }, [success, error]);
 
@@ -79,16 +77,16 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
   async function onSubmit(data: institutionData) {
     setPerfilEnviado(true); // Ativa controle de submissão
     dispatch(updateInstitutionProfile(data)); // Dispara atualização para o Firestore
+    toast.success("Perfil Concluído!");
   }
 
-  // Renderiza o formulário dividido entre dados institucionais e dados do responsável
+ 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <section className={styles.formContainer}>
         <aside className={styles.formContent}>
           <h3 className={styles.title}>Institucional</h3>
 
-          {/* Campos institucionais */}
           <Input
             type="text"
             name="name"
@@ -117,17 +115,17 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
             )}
           />
 
-          <Select
+          <CustomSelect
             name="type"
             options={["Escola", "Faculdade", "Curso Técnico", "Outro"]}
-            register={register}
+            control={control}
             error={errors.type?.message}
           />
 
-          <Select
+          <CustomSelect
             name="modality"
             options={["Presencial", "EAD", "Híbrido"]}
-            register={register}
+            control={control}
             error={errors.modality?.message}
           />
 
@@ -201,7 +199,6 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
         <aside className={styles.formContent}>
           <h3 className={styles.subtitle}>Responsável</h3>
 
-          {/* Campos do responsável institucional */}
           <Input
             type="text"
             name="responsible.name"
@@ -238,7 +235,6 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
         </aside>
       </section>
 
-      {/* Botão de envio com estado dinâmico */}
       <button
         type="submit"
         className={styles.submitButton}
